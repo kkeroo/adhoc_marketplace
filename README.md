@@ -38,6 +38,9 @@ A decentralized marketplace is a platform where buyers and sellers can directly 
 - The development team should use version control system
 - Docker should be included in the application development
 
+## Architecture
+![Architecture](images/architecture.png)
+
 ## Key techonologies
 - Ganache: personal ethereum blockchain to easily deploy and monitor smart contracts.
 - IPFS: used to store user's data.
