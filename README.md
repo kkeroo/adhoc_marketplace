@@ -9,7 +9,7 @@ A decentralized marketplace is a platform where buyers and sellers can directly 
 - Generate Verifiable Credentials: Once the user has a DID, they can generate a set of Verifiable Credentials that contain their personal information, such as name, email, address, or age.
 - Login to the Marketplace: When the user wants to log in to the marketplace, they can present a Verifiable Credential that contains their identity information.
 
-#### 2. Produt listing
+#### 2. Product listing
 - Sellers should be able to create product listings, which should include product description, price, and availability.
 - The listings are stored on the blockchain, ensuring that they cannot be tampered with or removed.
 - Once the seller submits the listing, the whole process should be controlled by smart contracts.
@@ -41,12 +41,12 @@ A decentralized marketplace is a platform where buyers and sellers can directly 
 ## Architecture
 ![Architecture](images/architecture.png)
 
-## Key techonologies
+## Key technologies
 - Ganache: personal ethereum blockchain to easily deploy and monitor smart contracts.
 - IPFS: used to store user's data.
-- Veramo: SSI framework.
+- OYDID: SSI framework.
 - Solidity: for developing smart contracts.
 - Mapbox: for geofencing, extracting coordinates.
 - Web3.js: to connect our frontend application with the blockchain.
 - ReactJS: to develop our frontend.
-- Docker: contenerize the application.
+- Docker: containerize the application.
