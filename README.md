@@ -18,11 +18,15 @@ A decentralized marketplace is a platform where buyers and sellers can directly 
 #### 3. Marketplace creation
 - Users can create a marketplace for a specific event, such as a pop-up market, garage sale, or flea market, by registering the marketplace on the blockchain using their DID. 
 
-#### 4. Viewing marketplace
+#### 4. Searching marketplaces
 - Logged-in users should be able to see all of the marketplaces in the area
 - It should use geofencing mechanism to display near marketplaces
 
-#### 5. Buying an item
+#### 5. Viewing marketplace
+-  User can select a specific marketplace
+-  The application should display all the items that are listed in a particular marketplace
+
+#### 6. Buying an item
 - Users should be able to buy any item in the marketplace only if he/she has enough funds
 - The transaction mechanism should involve smart contract that integrates DID registry and VC management system
 - The app should connect user to a wallet (MetaMask)
@@ -50,3 +54,32 @@ A decentralized marketplace is a platform where buyers and sellers can directly 
 - Web3.js: to connect our frontend application with the blockchain.
 - ReactJS: to develop our frontend.
 - Docker: containerize the application.
+
+## Database schema
+We will be storing some of the additional data about our users, listings and marketplaces off-chain. This approach can help to reduce the amount of data that needs to be stored on the blockchain and can lower the gas costs associated with storing and querying the data.
+
+#### User
+- Username: string
+- Name: string
+- Surname: string
+- Age: integer
+- E-mail: string
+- ID: integer
+
+#### Marketplace
+- ID: integer
+- Name: string
+- Description: string
+- Image: file
+- Lattitude: float
+- Longitude: float
+- Address: string
+
+#### Item
+- ID: integer
+- Name: string
+- Description: string
+- Image: file
+- Price: float
+- Seller: User
+- Specification: string
