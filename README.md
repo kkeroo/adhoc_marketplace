@@ -50,3 +50,32 @@ A decentralized marketplace is a platform where buyers and sellers can directly 
 - Web3.js: to connect our frontend application with the blockchain.
 - ReactJS: to develop our frontend.
 - Docker: contenerize the application.
+
+## Database schema
+We will be storing some of the additional data about our users, listings and marketplaces off-chain. This approach can help to reduce the amount of data that needs to be stored on the blockchain and can lower the gas costs associated with storing and querying the data.
+
+#### User
+- Username: string
+- Name: string
+- Surname: string
+- Age: integer
+- E-mail: string
+- ID: integer
+
+#### Marketplace
+- ID: integer
+- Name: string
+- Description: string
+- Image: file
+- Lattitude: float
+- Longitude: float
+- Address: string
+
+#### Item
+- ID: integer
+- Name: string
+- Description: string
+- Image: file
+- Price: float
+- Seller: User
+- Specification: string
