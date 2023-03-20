@@ -59,15 +59,15 @@ A decentralized marketplace is a platform where buyers and sellers can directly 
 We will be storing some of the additional data about our users, listings and marketplaces off-chain. This approach can help to reduce the amount of data that needs to be stored on the blockchain and can lower the gas costs associated with storing and querying the data.
 
 #### User
+- DID: integer
 - Username: string
 - Name: string
 - Surname: string
 - Age: integer
 - E-mail: string
-- ID: integer
 
 #### Marketplace
-- ID: integer
+- DID: integer
 - Name: string
 - Description: string
 - Lattitude: float
@@ -75,7 +75,7 @@ We will be storing some of the additional data about our users, listings and mar
 - Address: string
 
 #### Listing
-- ID: integer
+- DID: integer
 - marketplace: Marketplace
 - Name: string
 - Description: string
