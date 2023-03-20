@@ -70,16 +70,17 @@ We will be storing some of the additional data about our users, listings and mar
 - ID: integer
 - Name: string
 - Description: string
-- Image: file
 - Lattitude: float
 - Longitude: float
 - Address: string
 
-#### Item
+#### Listing
 - ID: integer
+- marketplace: Marketplace
 - Name: string
 - Description: string
 - Image: file
 - Price: float
 - Seller: User
 - Specification: string
+- Buyer: Optional(User)
