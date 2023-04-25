@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  veramo:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8002:8002"
+    working_dir: /code/
+    volumes:
+      - .:/code
+    command: sh -c "yarn install && yarn build:main && cd build && node main/index.js"
+    env_file:
+      - .env

@@ -48,7 +48,7 @@ A decentralized marketplace is a platform where buyers and sellers can directly 
 ## Key technologies
 - Ganache: personal ethereum blockchain to easily deploy and monitor smart contracts.
 - IPFS: used to store user's data.
-- OYDID: SSI framework.
+- Veramo: SSI framework.
 - Solidity: for developing smart contracts.
 - Mapbox: for geofencing, extracting coordinates.
 - Web3.js: to connect our frontend application with the blockchain.
