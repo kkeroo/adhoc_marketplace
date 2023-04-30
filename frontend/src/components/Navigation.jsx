@@ -13,7 +13,7 @@ function Navigation() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Link to='/create' style={{ textDecoration: 'none' }}><Nav.Link>Create listing</Nav.Link></Link>
+            <Link to='/create' className='nav-link' style={{ textDecoration: 'none' }}>Create listing</Link>
             <Nav.Link href="#link">Jasa K.</Nav.Link>
           </Nav>
         </Navbar.Collapse>
