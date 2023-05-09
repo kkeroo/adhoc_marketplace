@@ -4,9 +4,11 @@
     "strict": true,
     "target": "esnext",
     "module": "esnext",
-    "rootDir": "./",
+    "outDir": "build/main",
+    "rootDir": "src",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "resolveJsonModule": true
   }
 }
