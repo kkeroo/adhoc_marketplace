@@ -13,3 +13,8 @@ services:
     command: sh -c "yarn install && yarn build:main && cd build && node main/index.js"
     env_file:
       - .env
+
+networks:
+  default:
+    external:
+      name: marketplace-network

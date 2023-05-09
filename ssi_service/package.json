@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@veramo/core": "^5.1.2",
+    "@veramo/credential-w3c": "^5.2.0",
     "@veramo/data-store": "^5.1.2",
     "@veramo/did-manager": "^5.1.2",
     "@veramo/did-provider-ethr": "^5.1.2",

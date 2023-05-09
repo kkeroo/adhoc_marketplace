@@ -5,7 +5,8 @@ import {
     IResolver,
     IDataStore,
     IDataStoreORM,
-    IKeyManager
+    IKeyManager,
+    ICredentialPlugin
 } from '@veramo/core'
 
 // Core identity manager plugin
@@ -20,6 +21,8 @@ import { KeyManager } from '@veramo/key-manager'
 // Custom key management system for RN
 import { KeyManagementSystem, SecretBox } from '@veramo/kms-local'
 
+// W3C Verifiable Credential plugin
+import { CredentialPlugin } from '@veramo/credential-w3c'
 
 // Custom resolvers
 import { DIDResolverPlugin } from '@veramo/did-resolver'
@@ -52,7 +55,7 @@ const dbConnection = new DataSource({
 }).initialize()
 
 export const agent = createAgent<
-    IDIDManager & IKeyManager & IDataStore & IDataStoreORM & IResolver
+    IDIDManager & IKeyManager & IDataStore & IDataStoreORM & IResolver & ICredentialPlugin
 >({
     plugins: [
         new KeyManager({
@@ -77,5 +80,6 @@ export const agent = createAgent<
                 ...ethrDidResolver({ infuraProjectId: INFURA_PROJECT_ID }),
             }),
         }),
+        new CredentialPlugin(),
     ],
 })

@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: ./
+      dockerfile: docker/api/Dockerfile
+    ports:
+      - "8000:8000"
+    working_dir: /code/
+    volumes:
+      - .:/code
+    command: sh -c "python app"
+    environment:
+      PYTHONPATH: "/code/"
+    depends_on:
+      - neo4j
+
+  neo4j:
+    image: neo4j:4.4.0-enterprise
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    env_file:
+      - './database.env'
+    volumes:
+      - './bloom.license:/var/lib/neo4j/licenses/bloom.license'
+    healthcheck:
+      test: [ "CMD", "echo", "'MATCH (m) RETURN m;'", "|", "bin/cypher-shell", "-a", "bolt://localhost:7687" ]
+      interval: 1m
+      timeout: 10s
+      retries: 5
+
+  veramo:
+    build:
+      context: ./
+      dockerfile: docker/veramo/Dockerfile
+    ports:
+      - "8002:8002"
+    working_dir: /code/app/veramo
+    volumes:
+      - .:/code
+    command: sh -c "yarn install && yarn build:main && cd build && node main/index.js"
+    env_file:
+      - app/veramo/.env
