@@ -1,6 +1,6 @@
 import {DataSource, In, Not, Raw} from "typeorm";
 import {IRepository, PrimaryKeyT, RepositoryOptionsT} from "../types/repositories.js";
-import {User} from "./entities.js";
+import {Item, User, Listing} from "./entities.js";
 
 export let db: DataSource
 
@@ -13,7 +13,7 @@ export const initORM = async () => {
         password: process.env.POSTGRESQL_PWD,
         database: process.env.POSTGRESQL_DB,
         logging: false,
-        entities: [User],
+        entities: [User, Item, Listing],
         synchronize: false,
         cache: false
     })
@@ -94,3 +94,80 @@ export class UserRepository implements IRepository {
     }
 
 }
+
+
+export class ItemRepository implements IRepository {
+
+    async list(options: RepositoryOptionsT = {}) {
+        options = parseOptions(options)
+        return await db.manager.find<Item>(Item, {where: options})
+    }
+
+    async first(options: RepositoryOptionsT = {}){
+        options = parseOptions(options)
+        return await db.manager.findOne<Item>(Item, options)
+    }
+
+    async exists(options: RepositoryOptionsT = {}){
+        options = parseOptions(options)
+        return await db.manager.count(Item, options) > 0
+    }
+
+    async add(model: Item, options: RepositoryOptionsT = {}){
+        const i = await db.manager.insert<Item>(Item, model)
+        return i.identifiers[0].uuid
+    }
+
+    async update(uuid: string, model: Item, options: RepositoryOptionsT = {}){
+        const i = await db.manager.update<Item>(Item, uuid, model)
+        return i.raw
+    }
+
+    async delete(uuid: string){
+        await db.manager.delete<Item>(Item, uuid)
+    }
+
+    async get(uuid: PrimaryKeyT){
+        // @ts-ignore
+        return await db.manager.findOne<Item>(Item, {where: parseOptions({uuid})})
+    }
+}
+
+export class ListingRepository implements IRepository {
+
+        async list(options: RepositoryOptionsT = {}) {
+            options = parseOptions(options)
+            return await db.manager.find<Listing>(Listing, {where: options})
+        }
+
+        async first(options: RepositoryOptionsT = {}){
+            options = parseOptions(options)
+            return await db.manager.findOne<Listing>(Listing, options)
+        }
+
+        async exists(options: RepositoryOptionsT = {}){
+            options = parseOptions(options)
+            return await db.manager.count(Listing, options) > 0
+        }
+
+        async add(model: Listing, options: RepositoryOptionsT = {}){
+            const i = await db.manager.insert<Listing>(Listing, model)
+            return i.identifiers[0].uuid
+        }
+
+        async update(uuid: string, model: Listing, options: RepositoryOptionsT = {}){
+            const i = await db.manager.update<Listing>(Listing, uuid, model)
+            return i.raw
+        }
+
+        async delete(uuid: string){
+            await db.manager.delete<Listing>(Listing, uuid)
+        }
+
+        async get(uuid: PrimaryKeyT){
+            // @ts-ignore
+            return await db.manager.findOne<Listing>(Listing, {where: parseOptions({uuid})})
+        }
+}
+
+

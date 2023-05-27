@@ -33,14 +33,15 @@ export class DidManager {
         })
     }
 
-    async importDid(did: string, privateKey: string){
+    async importDid(uuid: string, address: string, privateKey: string){
         return await agent.didManagerImport({
-            did: did,
+            alias: uuid,
+            did: `did:ethr:goerli:${address}`,
             provider: 'did:ethr:goerli',
             keys: [
                 {
                     kms: 'local',
-                    privateKeyHex: privateKey,
+                    privateKeyHex: privateKey.replace('0x', ''),
                     type: 'Secp256k1',
                 },
             ],

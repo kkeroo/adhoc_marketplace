@@ -3,7 +3,7 @@ from fastapi import APIRouter
 
 from app.api.routers import check_response_errors
 
-router = APIRouter(prefix='/vc/', tags=['Verifiable Credentials'])
+router = APIRouter(prefix='/vc', tags=['Verifiable Credentials'])
 
 @router.post('/')
 async def issue_verifiable_credential():

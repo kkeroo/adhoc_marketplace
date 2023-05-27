@@ -3,7 +3,8 @@ config()
 import express from 'express'
 import {DidManager} from "./managers/DIDManager.js";
 import {CredentialsManager} from "./managers/CredentialsManager.js";
-// import {FileManager} from "./common/fileManager";
+import {UserManager} from "./managers/UserManager.js";
+import {initORM} from "./database/rdbms.js";
 
 let app = express()
 let port = process.env.PORT
@@ -13,6 +14,26 @@ app.use(express.json()) // express.json middleware
 // const fileManager = new FileManager()
 const didManager = new DidManager()
 const credentialManager = new CredentialsManager()
+const user_manager = new UserManager()
+
+// CREATE USER
+app.post('/users/', async (req, res) => {
+    const data = Object.assign({}, req.body)
+    let result = await user_manager.createUser(data.username).catch((error: Error) => {
+        res.status(400).send({message: error.message})
+    })
+    res.send(result);
+})
+
+// GET USER
+app.get('/users/:uuid/', async (req, res) => {
+    let result = await user_manager.getUser(req.params.uuid).catch((error: Error) => {
+        console.log("BIL JE ERROR")
+        console.log(error)
+        res.status(400).send({message: error.message})
+    })
+    res.send(result);
+})
 
 // GET DID LIST
 app.get('/did/', async (req, res) => {
@@ -54,7 +75,8 @@ app.post('/vc/', async (req, res) => {
     res.send(result);
 })
 
-
-app.listen(port, () => {
-    console.log(`Veramo service listening at http://localhost:${port}`)
+initORM().then(() => {
+    app.listen(port, () => {
+        console.log(`Veramo service listening at http://localhost:${port}`)
+    })
 })

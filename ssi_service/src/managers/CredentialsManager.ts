@@ -17,4 +17,8 @@ export class CredentialsManager {
             credential
         })
     }
+
+    async getVerifiableCredential(){
+        return await agent.dataStoreORMGetVerifiableCredentials()
+    }
 }

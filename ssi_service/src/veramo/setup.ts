@@ -59,12 +59,16 @@ export const agent = createAgent<
 >({
     plugins: [
         new KeyManager({
+
+            // @ts-ignore
             store: new KeyStore(dbConnection),
             kms: {
+                // @ts-ignore
                 local: new KeyManagementSystem(new PrivateKeyStore(dbConnection, new SecretBox(KMS_SECRET_KEY))),
             },
         }),
         new DIDManager({
+            // @ts-ignore
             store: new DIDStore(dbConnection),
             defaultProvider: 'did:ethr:goerli',
             providers: {
