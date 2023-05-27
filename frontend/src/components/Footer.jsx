@@ -1,11 +1,12 @@
+import React from "react";
 
 const Footer = () => {
     return (
-        <div class="footer-dark mt-5" style={{borderTop: '2px solid #DDD'}}>
+        <div className="footer-dark mt-5" style={{borderTop: '2px solid #DDD'}}>
         <footer>
-            <div class="container mt-2">
-                <div class="row text-center">
-                <p class="copyright">adhok © 2023</p>
+            <div className="container mt-2">
+                <div className="row text-center">
+                <p className="copyright">adhok © 2023</p>
                 </div>
             </div>
         </footer>
