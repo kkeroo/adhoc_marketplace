@@ -69,7 +69,17 @@ app.delete('/did/:did/', async (req, res) => {
 
 // CREATE VERIFIABLE CREDENTIAL
 app.post('/vc/', async (req, res) => {
-    let result = await credentialManager.createVerifiableCredential(req.body).catch((error: Error) => {
+    const data = Object.assign({}, req.body)
+    let result = await credentialManager.createVerifiableCredential(data).catch((error: Error) => {
+        res.status(400).send({message: error.message})
+    })
+    res.send(result);
+})
+
+// VERIFY VERIFIABLE CREDENTIAL
+app.post('/vc/verify/', async (req, res) => {
+    const data = Object.assign({}, req.body)
+    let result = await credentialManager.verifyVerifiableCredential(data.verifiable_credential).catch((error: Error) => {
         res.status(400).send({message: error.message})
     })
     res.send(result);

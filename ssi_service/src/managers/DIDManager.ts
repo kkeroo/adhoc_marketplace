@@ -6,7 +6,7 @@ export class DidManager {
     async createDid(alias?: string){
         return await agent.didManagerCreate({
             alias: alias,
-            provider: 'did:ethr:goerli',
+            provider: `did:ethr:goerli`,
             kms: 'local'
         })
     }

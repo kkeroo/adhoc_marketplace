@@ -1,5 +1,5 @@
 import {agent} from "../veramo/setup.js";
-import {CredentialPayload} from "@veramo/core";
+import {CredentialPayload, VerifiableCredential} from "@veramo/core";
 import {W3CVerifiableCredential} from "@veramo/core-types/src/types/vc-data-model";
 
 export class CredentialsManager {
@@ -13,9 +13,11 @@ export class CredentialsManager {
     }
 
     async verifyVerifiableCredential(credential: W3CVerifiableCredential){
-        return await agent.verifyCredential({
+        const args = {
             credential
-        })
+        }
+        console.log("VERIFYING CREDENTIAL", args)
+        return await agent.verifyCredential(args)
     }
 
     async getVerifiableCredential(){
