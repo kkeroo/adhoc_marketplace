@@ -12,6 +12,7 @@ settings = get_settings()
 origins = [
     "http://localhost",
     "http://localhost:3000",
+    "http://localhost:3000/"
 ]
 
 fastapi_app.add_middleware(

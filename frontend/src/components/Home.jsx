@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import { Button, Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Listing from './Listing';
@@ -27,24 +27,6 @@ const Home = () => {
   useEffect(() => {
     fetchListings().then(console.log);
   }, []);
-
-
-  // const listings = [
-  //   {
-  //     id: 0,
-  //     title: 'Car',
-  //     description: 'Selling my Toyota with only 45,000 miles! This car is in excellent condition and has been well-maintained.',
-  //     image: '../../car.jpg',
-  //     price: '5000,00'
-  //   },
-  //   {
-  //     id: 1,
-  //     title: 'Tomos',
-  //     description: 'Selling my Tomos moped in excellent condition',
-  //     image: '../../tomos.jpg',
-  //     price: '200,00'
-  //   },
-  // ];
 
   const handleShowDetails = (e) => {
     let itemId = e.target.id;

@@ -6,7 +6,7 @@ function Listing(props) {
     <Card style={{ width: '18rem' }}>
       <Card.Img variant="top" src={props.item.image} />
       <Card.Body>
-        <Card.Title>{props.item.title}</Card.Title>
+        <Card.Title>{props.item.name}</Card.Title>
         <Card.Text>
             {props.item.description}
         </Card.Text>

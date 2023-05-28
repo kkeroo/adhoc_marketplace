@@ -65,7 +65,7 @@ function Items(){
                             <tbody>
                                 {items.map((item, index) => (
                                     <tr>
-                                        <img src={item.image} style={{maxHeight: '100%', width: '5em', objectFit: 'cover'}}></img>
+                                        <td><img src={item.image} style={{maxHeight: '100%', width: '5em', objectFit: 'cover'}}></img></td>
                                         <td>{item.name}</td>
                                         <td>{item.description}</td>
                                         { !item.listed ?
