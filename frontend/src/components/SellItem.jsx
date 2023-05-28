@@ -3,6 +3,9 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import {Alert} from "react-bootstrap";
 
 const SellItem = (props) => {
 
@@ -46,6 +49,11 @@ const SellItem = (props) => {
                         </InputGroup>
                     </Form.Group>
                 </Form>
+                <Row>
+                    <Col className={"text-center"}>
+                        <Alert variant={"warning"}>Listing an item costs gas fees to deploy the smart contract. Make sure you have sufficient funds on your Ethereum account.</Alert>
+                    </Col>
+                </Row>
             </Modal.Body>
             <Modal.Footer>
                 <div>

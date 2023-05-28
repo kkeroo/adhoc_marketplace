@@ -14,7 +14,7 @@ function Items(){
 
     const fetchItems = async () => {
         const response = await fetch(
-            'http://localhost:8000/api/v1/items/?' + new URLSearchParams({user_uuid: localStorage.getItem('user_uuid')}),
+                'http://localhost:8000/api/v1/items/?' + new URLSearchParams({user_uuid: localStorage.getItem('user_uuid')}),
             {
                 method: 'GET',
                 headers: {

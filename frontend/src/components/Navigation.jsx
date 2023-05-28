@@ -15,7 +15,7 @@ function Navigation() {
           <Nav className="ms-auto">
             <Link to='/listings' className='nav-link' style={{ textDecoration: 'none' }}>My Listings</Link>
             <Link to='/items' className='nav-link' style={{ textDecoration: 'none' }}>My Items</Link>
-            <Nav.Link href="/profile">Jasa K.</Nav.Link>
+            <Nav.Link href="/profile">Profile</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
