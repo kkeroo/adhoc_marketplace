@@ -64,4 +64,7 @@ export class Listing {
 
     @Column()
     private: boolean
+
+    @Column()
+    status: string
 }

@@ -63,6 +63,7 @@ export class ListingManager {
         listing.contract_address = deployedContract.options.address
         listing.contract_abi = JSON.stringify(abi)
         listing.private = _private
+        listing.status = "CREATED"
 
         // @ts-ignore
         item.listed = true
@@ -136,6 +137,12 @@ export class ListingManager {
         console.log(`Mined in block ${receipt.blockNumber}`);
         console.log('RECEIPT', receipt)
 
+        // @ts-ignore
+        listing.status = 'LOCKED'
+        // @ts-ignore
+        await listing_repo.update(uuid, listing)
+
+
         return {receipt: receipt}
     }
 
@@ -171,6 +178,21 @@ export class ListingManager {
         console.log(`Mined in block ${receipt.blockNumber}`);
         console.log('RECEIPT', receipt)
 
+        // @ts-ignore
+        listing.status = 'RELEASE'
+        // @ts-ignore
+        await listing_repo.update(uuid, listing)
+
+        const item_repo = new ItemRepository()
+        // @ts-ignore
+        const item = await item_repo.get(listing.item.uuid)
+        // @ts-ignore
+        item.user_uuid = user_uuid
+        // @ts-ignore
+        item.listed = false
+        // @ts-ignore
+        await item_repo.update(item.uuid, item)
+
         return {receipt: receipt}
     }
 
@@ -205,6 +227,11 @@ export class ListingManager {
         // The transaction is now on chain!
         console.log(`Mined in block ${receipt.blockNumber}`);
         console.log('RECEIPT', receipt)
+
+        // @ts-ignore
+        listing.status = 'COMPLETED'
+        // @ts-ignore
+        await listing_repo.update(uuid, listing)
 
         return {receipt: receipt}
     }

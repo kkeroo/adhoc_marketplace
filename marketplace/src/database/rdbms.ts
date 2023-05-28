@@ -170,8 +170,7 @@ export class ListingRepository implements IRepository {
         }
 
         async get(uuid: PrimaryKeyT){
-            // @ts-ignore
-            return await db.manager.findOne<Listing>(Listing, {where: parseOptions({uuid})})
+            return await db.getRepository(Listing).findOne({where: parseOptions({uuid}), relations: {item: true}})
         }
 }
 

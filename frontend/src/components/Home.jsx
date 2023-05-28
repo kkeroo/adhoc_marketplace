@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -9,6 +9,65 @@ const Home = () => {
   
   const [currentItem, setCurrentItem] = useState({});
   const [showDetails, setShowDetails] = useState(false);
+
+  const buyItem = async (listing) => {
+      await fetch('http://localhost:8000/api/v1/listings/' + listing.uuid + '/buy/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('login_vc')
+            },
+            body: JSON.stringify({user_uuid: localStorage.getItem('user_uuid')})
+      })
+      await fetchListings();
+  }
+
+    const confirmReceived = async (listing) => {
+      await fetch('http://localhost:8000/api/v1/listings/' + listing.uuid + '/accept/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('login_vc')
+            },
+            body: JSON.stringify({user_uuid: localStorage.getItem('user_uuid')})
+      })
+      await fetchListings();
+    }
+
+    const claimFunds = async (listing) => {
+        await fetch('http://localhost:8000/api/v1/listings/' + listing.uuid + '/finish/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('login_vc')
+            },
+            body: JSON.stringify({user_uuid: localStorage.getItem('user_uuid')})
+        })
+        await fetchListings();
+    }
+
+  const listingStates = {
+      CREATED: {
+        variant: 'success',
+        button_text: 'Buy',
+        badge_text: 'Listed'
+      },
+      LOCKED: {
+        variant: 'warning',
+        button_text: 'Confirm Received',
+        badge_text: 'In Delivery'
+      },
+      RELEASE: {
+        variant: 'success',
+        button_text: 'Claim Funds',
+        badge_text: 'Completed'
+      },
+      COMPLETED: {
+        variant: 'dark',
+        badge_text: 'Completed'
+      }
+
+  }
 
   const [listings, setListings] = useState([]);
 
@@ -28,10 +87,20 @@ const Home = () => {
     fetchListings().then(console.log);
   }, []);
 
-  const handleShowDetails = (e) => {
-    let itemId = e.target.id;
-    setCurrentItem(listings[itemId]);
-    setShowDetails(true);
+  const handleButtonClick = async (e) => {
+      switch (e.status) {
+            case 'CREATED':
+                await buyItem(e);
+                break;
+            case 'LOCKED':
+                await confirmReceived(e);
+                break;
+            case 'RELEASE':
+                await claimFunds(e);
+                break;
+            default:
+                break;
+      }
   };
 
   const handleCloseDetails = () => {
@@ -40,7 +109,7 @@ const Home = () => {
 
   return (
     <div>
-      <ItemDetails show={showDetails} onClose={handleCloseDetails} {...currentItem}></ItemDetails>
+      {/*<ItemDetails show={showDetails} onClose={handleCloseDetails} {...currentItem}></ItemDetails>*/}
       <div className='text-center welcome-text'>
         <h2>Current listings</h2>
       </div>
@@ -48,7 +117,10 @@ const Home = () => {
         <Row>
           {listings.map((listing) => (
             <Col lg='4' className='mt-2'>
-              <Listing {...listing} onClick={handleShowDetails}/>
+              <Listing listing={listing}
+                       state={listingStates[listing.status]}
+                       onClick={() => handleButtonClick(listing)}
+              />
             </Col>
           ))}
         </Row>
