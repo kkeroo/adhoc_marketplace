@@ -5,7 +5,7 @@ import * as fs from "fs";
 import solc from "solc";
 import {Listing} from "../database/entities.js";
 import {randomUUID} from "crypto";
-import {ListingRepository, UserRepository} from "../database/rdbms.js";
+import {ItemRepository, ListingRepository, UserRepository} from "../database/rdbms.js";
 import {RepositoryOptionsT} from "../types/repositories.js";
 
 export class ListingManager {
@@ -23,9 +23,6 @@ export class ListingManager {
 
         const user_repo = new UserRepository()
         const user = await user_repo.get(user_uuid)
-
-        console.log('USER', user)
-        console.log('USER', user?.eth_private_key)
 
         // Creating a signing account from a private key
         const signer = this.web3.eth.accounts.privateKeyToAccount(
@@ -54,17 +51,25 @@ export class ListingManager {
         // The contract is now deployed on chain!
         console.log(`Contract deployed at ${deployedContract.options.address}`);
 
+        const item_repo = new ItemRepository()
+        const item = await item_repo.get(item_uuid)
+
         const listing = new Listing()
         listing.uuid = randomUUID()
         listing.user_uuid = user_uuid
-        listing.item = item_uuid
+        // @ts-ignore
+        listing.item = item
         listing.price = price
         listing.contract_address = deployedContract.options.address
         listing.contract_abi = JSON.stringify(abi)
         listing.private = _private
 
-        const listing_repo = new ListingRepository()
+        // @ts-ignore
+        item.listed = true
+        // @ts-ignore
+        await item_repo.update(item_uuid, item)
 
+        const listing_repo = new ListingRepository()
         return {uuid: await listing_repo.add(listing)}
 
     }

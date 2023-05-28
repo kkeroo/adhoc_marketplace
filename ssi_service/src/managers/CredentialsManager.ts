@@ -16,7 +16,6 @@ export class CredentialsManager {
         const args = {
             credential
         }
-        console.log("VERIFYING CREDENTIAL", args)
         return await agent.verifyCredential(args)
     }
 

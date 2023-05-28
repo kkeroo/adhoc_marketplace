@@ -3,10 +3,24 @@ from starlette.middleware.authentication import AuthenticationMiddleware
 from app.api.auth import VerifiableCredentialAuthBackend, on_auth_error
 from app.api.routers import credentials, dids, users, items, listings
 from app.common.settings import get_settings
+from fastapi.middleware.cors import CORSMiddleware
 
 fastapi_app = FastAPI()
 
 settings = get_settings()
+
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+]
+
+fastapi_app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 fastapi_app.add_middleware(AuthenticationMiddleware, backend=VerifiableCredentialAuthBackend(), on_error=on_auth_error)
 

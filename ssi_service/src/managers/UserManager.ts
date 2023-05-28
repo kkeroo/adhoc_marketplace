@@ -8,7 +8,7 @@ export class UserManager {
     web3 = new Web3(`https://goerli.infura.io/v3/${process.env.INFURA_PROJECT_ID}`)
     constructor() {}
 
-    async createUser(username: string){
+    async createUser(username: string, first_name: string, last_name: string) {
         const user_repo = new UserRepository()
         const did_manager = new DidManager()
         const user = new User()
@@ -18,11 +18,13 @@ export class UserManager {
 
         user.uuid = user_uuid
         user.username = username
+        user.first_name = first_name
+        user.last_name = last_name
         user.eth_address =  eth_account.address;
         user.eth_private_key =  eth_account.privateKey;
         user.did = user_did.did
 
-        return {uuid: await user_repo.add(user)}
+        return await user_repo.add(user)
     }
 
     async getUser(uuid: string){

@@ -10,7 +10,7 @@ from app.api.routers import check_response_errors
 class VerifiableCredentialAuthBackend(AuthenticationBackend):
     async def authenticate(self, conn: HTTPConnection):
         endpoint = conn.scope.get('path')
-        if endpoint in ['/api/v1/did/', '/api/v1/vc/']:
+        if endpoint in ['/api/v1/did/', '/api/v1/vc/', '/api/v1/users/']:
             return AuthCredentials(['unauthenticated']), UnauthenticatedUser()
 
         # Always allow OPTIONS requests, so Nuxt Auth lib and FastAPI CORS middleware can handle CORS properly

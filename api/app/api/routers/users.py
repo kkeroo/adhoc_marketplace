@@ -12,6 +12,8 @@ router = APIRouter(prefix='/users', tags=['Users'])
 async def create_user(user_registration: UserRegistrationIn):
     data = {
         "username": user_registration.username,
+        "first_name": user_registration.first_name,
+        "last_name": user_registration.last_name
     }
     return check_response_errors(response=requests.post(url='http://veramo:8002/users/', json=data))
 

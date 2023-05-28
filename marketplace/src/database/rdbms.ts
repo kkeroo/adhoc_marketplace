@@ -1,4 +1,4 @@
-import {DataSource, In, Not, Raw} from "typeorm";
+import {createQueryBuilder, DataSource, In, Not, Raw} from "typeorm";
 import {IRepository, PrimaryKeyT, RepositoryOptionsT} from "../types/repositories.js";
 import {Item, User, Listing} from "./entities.js";
 
@@ -136,8 +136,13 @@ export class ItemRepository implements IRepository {
 export class ListingRepository implements IRepository {
 
         async list(options: RepositoryOptionsT = {}) {
+            // Select a user and all their watchers
+            // const query = createQueryBuilder('listings', 'l')
+            //     .innerJoinAndSelect('l.item', 'i'); // 'w.userId = u.id' may be omitted
+            // return await query.getMany();
             options = parseOptions(options)
-            return await db.manager.find<Listing>(Listing, {where: options})
+            // return await db.manager.find<Listing>(Listing, {where: options})
+            return await db.getRepository(Listing).find({where: options, relations: {item: true}})
         }
 
         async first(options: RepositoryOptionsT = {}){

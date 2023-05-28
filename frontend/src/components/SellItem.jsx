@@ -1,9 +1,8 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import { useState } from 'react';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 const SellItem = (props) => {
 
@@ -13,9 +12,20 @@ const SellItem = (props) => {
         setPrice(e.target.value);
     };
     
-    const handleListItem = () => {
-        console.log(props.item);
-        console.log(price);
+    const handleListItem = async () => {
+        await fetch('http://localhost:8000/api/v1/listings/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('login_vc')
+            },
+            body: JSON.stringify({
+                item_uuid: props.item.uuid,
+                price: price,
+                user_uuid: props.item.user_uuid,
+                private: false
+            })
+        })
         props.onClose();
     };
 
@@ -25,16 +35,15 @@ const SellItem = (props) => {
             <Modal.Body>
                 <Form>
                     <Form.Group className="mb-3">
-                        <Form.Label>Item ID</Form.Label>
-                        <Form.Control type="text" value={props.item.id} disabled/>
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Item title</Form.Label>
-                        <Form.Control type="text" value={props.item.title} disabled/>
+                        <Form.Label>Item Name</Form.Label>
+                        <Form.Control type="text" value={props.item.name} disabled/>
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Item Price</Form.Label>
-                        <Form.Control type="number" min={0} placeholder="Enter item price" onChange={e => handlePriceChange(e)}/>
+                        <InputGroup>
+                            <Form.Control type="number" min={0} placeholder="Enter item price" onChange={e => handlePriceChange(e)}/>
+                            <InputGroup.Text>wei</InputGroup.Text>
+                        </InputGroup>
                     </Form.Group>
                 </Form>
             </Modal.Body>

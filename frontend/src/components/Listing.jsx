@@ -4,13 +4,13 @@ import Card from 'react-bootstrap/Card';
 function Listing(props) {
   return (
     <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={props.image} />
+      <Card.Img variant="top" src={props.item.image} />
       <Card.Body>
-        <Card.Title>{props.title}</Card.Title>
+        <Card.Title>{props.item.title}</Card.Title>
         <Card.Text>
-            {props.description}
+            {props.item.description}
         </Card.Text>
-        <p className='text-primary'>Price: {props.price} €</p>
+        <p className='text-primary'>Price: {props.price} WEI</p>
         <Button variant="primary" id={props.id} onClick={props.onClick}>Buy</Button>
       </Card.Body>
     </Card>

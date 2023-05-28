@@ -19,7 +19,7 @@ const user_manager = new UserManager()
 // CREATE USER
 app.post('/users/', async (req, res) => {
     const data = Object.assign({}, req.body)
-    let result = await user_manager.createUser(data.username).catch((error: Error) => {
+    let result = await user_manager.createUser(data.username, data.first_name, data.last_name).catch((error: Error) => {
         res.status(400).send({message: error.message})
     })
     res.send(result);

@@ -1,4 +1,4 @@
-import {Column, Entity, PrimaryColumn} from "typeorm";
+import {Column, Entity, JoinColumn, OneToOne, PrimaryColumn} from "typeorm";
 
 @Entity({ name: 'users' })
 export class User {
@@ -16,31 +16,6 @@ export class User {
 
     @Column()
     did: string
-}
-
-
-@Entity({ name: 'listings' })
-export class Listing {
-    @PrimaryColumn()
-    uuid: string
-
-    @Column()
-    user_uuid: string
-
-    @Column()
-    item: string
-
-    @Column()
-    price: number
-
-    @Column()
-    contract_address: string
-
-    @Column()
-    contract_abi: string
-
-    @Column()
-    private: boolean
 }
 
 @Entity({ name: 'items' })
@@ -62,4 +37,31 @@ export class Item {
 
     @Column()
     image: string
+
+    @Column()
+    listed: boolean
+}
+
+@Entity({ name: 'listings' })
+export class Listing {
+    @PrimaryColumn()
+    uuid: string
+
+    @Column()
+    user_uuid: string
+
+    @OneToOne(type => Item, { cascade: true })  @JoinColumn()
+    item: Item
+
+    @Column()
+    price: number
+
+    @Column()
+    contract_address: string
+
+    @Column()
+    contract_abi: string
+
+    @Column()
+    private: boolean
 }

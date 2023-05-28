@@ -1,6 +1,7 @@
 import requests
 from fastapi import APIRouter
 from app.api.serializers.listings import ListingIn, BuyListingIn, AcceptListingIn, FinishListingIn
+from typing import Optional
 
 from app.api.routers import check_response_errors
 
@@ -8,9 +9,9 @@ router = APIRouter(prefix='/listings', tags=['Listings'])
 
 
 @router.get('/')
-async def get_listings(user_uuid: str):
+async def get_listings(user_uuid: str = None):
     # params = {'user_uuid': user_uuid if user_uuid else None}
-    return check_response_errors(response=requests.get(url=f'http://marketplace:8003/items/',
+    return check_response_errors(response=requests.get(url=f'http://marketplace:8003/listings/',
                                                        # params=params
                                                        ))
 

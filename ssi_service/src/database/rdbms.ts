@@ -74,9 +74,10 @@ export class UserRepository implements IRepository {
         return await db.manager.count(User, options) > 0
     }
 
-    async add(model: User, options: RepositoryOptionsT = {}): Promise<PrimaryKeyT> {
-        const u = await db.manager.insert<User>(User, model)
-        return u.identifiers[0].uuid
+    // @ts-ignore
+    async add(model: User, options: RepositoryOptionsT = {}) {
+        await db.manager.insert<User>(User, model)
+        return model
     }
 
     async update(uuid: string, model: User, options: RepositoryOptionsT = {}): Promise<User> {
