@@ -1,5 +1,6 @@
 # Table of Contents
 - [Ad-hoc marketplace](#ad-hoc-marketplace)
+- [Architecture](#architecture)
 - [Setup](#setup)
   - [Docker](#docker)
   - [Ethereum](#ethereum)
