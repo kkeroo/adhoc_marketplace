@@ -26,6 +26,7 @@ The marketplace application consists of the following services:
 - PostgreSQL database
 
 Architecture diagram:
+
 ![Architecture](images/architecture.png)
 
 ## Setup
