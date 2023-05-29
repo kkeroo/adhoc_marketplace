@@ -6,3 +6,12 @@ A decentralized marketplace is a platform where buyers and sellers can directly 
 
 
 ## Setup
+### Docker
+### Ethereum
+### PostgreSql
+### SSI service
+### Marketplace service
+### API gateway
+### Frontend
+
+## Usage
